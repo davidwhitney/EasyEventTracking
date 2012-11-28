@@ -1,6 +1,7 @@
 function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
-	
-	_this = this;
+	'use strict';
+
+	var _this = this;
 	var trackSelector = "track";
 	var _errorLog = errorLog || console;
 
@@ -14,19 +15,19 @@ function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
 	this.bind = function(selector){
 
 		$(selector).click(function(element){
-			_this.trackEvent('click', this)			
+			_this.trackEvent('click', this);
 		});
 
 		$(selector + "-blur").blur(function(element){
-			_this.trackEvent('blur', this)			
+			_this.trackEvent('blur', this);
 		});
 
 		$(selector + "-focus").focus(function(element){
-			_this.trackEvent('focus', this)			
+			_this.trackEvent('focus', this);
 		});
 
 		$(selector + "-mouseover").mouseover(function(element){
-			_this.trackEvent('mouseover', this)			
+			_this.trackEvent('mouseover', this);
 		});
 	};
 
@@ -36,7 +37,7 @@ function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
 		
 		_googleAnalytics.push(trackevent);
 		_afterTrackEventFires(trackevent);
-	}
+	};
 
 	this.inferTrackingDetails = function(interaction, fromElement){
 
@@ -47,7 +48,7 @@ function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
 		var nonInteraction = $(fromElement).data('non-interaction') || false; // optional
 
 		return ['_trackEvent', category, action, label, value, nonInteraction];
-	}
+	};
 
 	_this.bind("." + trackSelector);
 }
