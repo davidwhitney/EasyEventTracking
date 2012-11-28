@@ -40,10 +40,10 @@ function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
 
 	this.inferTrackingDetails = function(interaction, fromElement){
 
-		var category = $(fromElement).data(trackSelector + '-category') || "AutoTrack";
-		var action = $(fromElement).data(trackSelector + '-action') || interaction;
-		var label = $(fromElement).data(trackSelector + '-label') || window.location.pathname + "#" + fromElement.id; // optional
-		var value = $(fromElement).data(trackSelector + '-value') || ""; // optional
+		var category = $(fromElement).data('category') || "AutoTrack";
+		var action = $(fromElement).data('action') || interaction;
+		var label = $(fromElement).data('label') || window.location.pathname + "#" + fromElement.id; // optional
+		var value = $(fromElement).data('value') || ""; // optional
 		var nonInteraction = $(fromElement).data('non-interaction') || false; // optional
 
 		return ['_trackEvent', category, action, label, value, nonInteraction];

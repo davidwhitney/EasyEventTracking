@@ -102,7 +102,7 @@ describe("when an attribute with html5 data annotations on the track-event eleme
     beforeEach(function() {
       _gaq = [];
       $('#testArea').html('');
-      $('#testArea').append('<div id="track" class="track" data-track-category="category-here">test-data</div>');
+      $('#testArea').append('<div id="track" class="track" data-category="category-here">test-data</div>');
     });
 
     it("cateogry should override convention based tracking events", function() {
