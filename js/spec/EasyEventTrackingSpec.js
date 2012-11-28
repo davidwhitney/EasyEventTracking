@@ -23,7 +23,7 @@ describe("when trackable element is present", function() {
     });
 
     it("track-click class invokes track event on element with inferred default action", function() { 
-      $('#testArea').append('<div id="track" class="track-click">test-data</div>');
+      $('#testArea').append('<div id="track" class="track">test-data</div>');
       easyEventTracker = new EasyEventTracking(_gaq);
 
       $('#track').click();
@@ -69,7 +69,7 @@ describe("when a default track-event element is clicked", function() {
     beforeEach(function() {
       _gaq = [];
       $('#testArea').html('');
-      $('#testArea').append('<div id="track" class="track-click">test-data</div>');
+      $('#testArea').append('<div id="track" class="track">test-data</div>');
     });
 
     it("a track event should be sent to google analytics", function() {      
@@ -87,21 +87,30 @@ describe("when a default track-event element is clicked", function() {
 
       expect(_gaq[0][2]).toEqual("click");
     });
+
+    it("Default category set to AutoTrack", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][1]).toEqual("AutoTrack");
+    });
+
   });
 
 describe("when an attribute with html5 data annotations on the track-event element is clicked", function() {
     beforeEach(function() {
       _gaq = [];
       $('#testArea').html('');
-      $('#testArea').append('<div id="track" class="track-click">test-data</div>');
+      $('#testArea').append('<div id="track" class="track" data-track-category="category-here">test-data</div>');
     });
 
-    it("data attributes should override convention based tracking events", function() {
+    it("cateogry should override convention based tracking events", function() {
       easyEventTracker = new EasyEventTracking(_gaq);
 
       $('#track').click();
 
-
+      expect(_gaq[0][1]).toEqual("category-here");
     });
 
   });

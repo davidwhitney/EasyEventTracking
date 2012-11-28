@@ -13,7 +13,7 @@ function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
 
 	this.bind = function(selector){
 
-		$(selector + "-click").click(function(element){
+		$(selector).click(function(element){
 			_this.trackEvent('click', this)			
 		});
 
@@ -40,9 +40,9 @@ function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
 
 	this.inferTrackingDetails = function(interaction, fromElement){
 
-		var category = $(fromElement).data(trackSelector + '-category') || "";
+		var category = $(fromElement).data(trackSelector + '-category') || "AutoTrack";
 		var action = $(fromElement).data(trackSelector + '-action') || interaction;
-		var label = $(fromElement).data(trackSelector + '-label') || ""; // optional
+		var label = $(fromElement).data(trackSelector + '-label') || window.location.pathname + "#" + fromElement.id; // optional
 		var value = $(fromElement).data(trackSelector + '-value') || ""; // optional
 		var nonInteraction = $(fromElement).data('non-interaction') || false; // optional
 
