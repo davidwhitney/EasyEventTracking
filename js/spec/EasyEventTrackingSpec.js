@@ -1,47 +1,110 @@
 describe("EasyEventTracking", function() {
   var easyEventTracker;
+  var _gaq = [];
 
-  beforeEach(function() {
-    easyEventTracker = new EasyEventTracking();
+  describe("when google analytics library is not present", function() {
+    it("should log an error to the console and not throw", function() {
+
+      var mockLogger = {
+        log: function(msg){
+          expect(msg).toEqual("Google analytics was not supplied to the constructor. Auto-event tracking won't work.");
+        }
+      };
+
+      easyEventTracker = new EasyEventTracking(null, null, mockLogger);         
+      
+    });
   });
 
-  it("should be able to bind", function() {
-    easyEventTracker.bind();
-
-    expect(easyEventTracker.watchedSelector()).toEqual(".track-event");
-  });
-
-  describe("when google analytics library is not present and bind is called", function() {
+describe("when trackable element is present", function() {
     beforeEach(function() {
+      _gaq = [];
+      $('#testArea').html('');
     });
 
-    it("should log an error to the console", function() {
+    it("track-click class invokes track event on element with inferred default action", function() { 
+      $('#testArea').append('<div id="track" class="track-click">test-data</div>');
+      easyEventTracker = new EasyEventTracking(_gaq);
 
+      $('#track').click();
+
+      expect(_gaq[0][0]).toEqual("_trackEvent");
+      expect(_gaq[0][2]).toEqual("click");
     });
 
-    it("should fail without causing subsequent scripts to fail", function() {
+    it("track-hover class invokes track event on element with inferred default action", function() { 
+      $('#testArea').append('<div id="track" class="track-mouseover">test-data</div>');
+      easyEventTracker = new EasyEventTracking(_gaq);
 
+      $('#track').mouseover();
+
+      expect(_gaq[0][0]).toEqual("_trackEvent");
+      expect(_gaq[0][2]).toEqual("mouseover");
     });
+
+    it("track-focus class invokes track event on element with inferred default action", function() { 
+      $('#testArea').append('<div id="track" class="track-focus">test-data</div>');
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').focus();
+
+      expect(_gaq[0][0]).toEqual("_trackEvent");
+      expect(_gaq[0][2]).toEqual("focus");
+    });
+
+    it("track-blur class invokes track event on element with inferred default action", function() { 
+      $('#testArea').append('<div id="track" class="track-blur">test-data</div>');
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').blur();
+
+      expect(_gaq[0][0]).toEqual("_trackEvent");
+      expect(_gaq[0][2]).toEqual("blur");
+    });
+
+
   });
 
-describe("when a track-event element is clicked", function() {
+describe("when a default track-event element is clicked", function() {
     beforeEach(function() {
+      _gaq = [];
+      $('#testArea').html('');
+      $('#testArea').append('<div id="track" class="track-click">test-data</div>');
     });
 
-    it("a track event should be sent to google analytics", function() {
+    it("a track event should be sent to google analytics", function() {      
+      easyEventTracker = new EasyEventTracking(_gaq);
 
+      $('#track').click();
+
+      expect(_gaq[0][0]).toEqual("_trackEvent");
     });
 
-    it("the default google analytics information should be used", function() {
+    it("the default track action is 'click'", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
 
+      $('#track').click();
+
+      expect(_gaq[0][2]).toEqual("click");
+    });
+  });
+
+describe("when an attribute with html5 data annotations on the track-event element is clicked", function() {
+    beforeEach(function() {
+      _gaq = [];
+      $('#testArea').html('');
+      $('#testArea').append('<div id="track" class="track-click">test-data</div>');
     });
 
-    it("html5 data attributes should override convention based tracking events", function() {
+    it("data attributes should override convention based tracking events", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
 
     });
 
   });
-
-
 
 });
+      
