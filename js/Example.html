@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>EasyEventTrackingExample</title>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+
+  <script type="text/javascript">
+   var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  
+  </script>
+  <script type="text/javascript" src="src/EasyEventTracking.js"></script>
+  <script type="text/javascript">
+  $(function(){
+    var tracker = new EasyEventTracking(_gaq, function(trackEvent){
+        $('#trackEventHistory').append("<p>Track event was fired: " + trackEvent + "</p>");
+    });
+  });
+  </script>
+
+
+</head>
+
+<body>
+
+<div style="width: 100%; padding: 50px; border: 50px;">
+  <div class="track" style="border: 1px solid red; width: 100px; height: 100px; float: left;">
+    This will track when clicked.
+  </div>
+
+  <div class="track-mouseover" style="border: 1px solid red; width: 100px; height: 100px; float: left;">
+    This will track when moused over.
+  </div>
+
+  <div class="track" data-action="action!" data-category="category-here" data-label="label-here" data-value="my-val" data-non-interaction="true" style="border: 1px solid red; width: 100px; height: 100px; float: left;">
+    This overrides all available parameters using HTML5 data attributes.
+  </div>
+</div>
+
+<div id="trackEventHistory" style="float: none; clear: both; padding: 50px; ">
+
+</div>
+
+
+</body>
+</html>
