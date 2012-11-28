@@ -11,7 +11,7 @@ describe("EasyEventTracking", function() {
         }
       };
 
-      easyEventTracker = new EasyEventTracking(null, null, mockLogger);         
+      easyEventTracker = new EasyEventTracking(null, null, mockLogger);
       
     });
   });
@@ -22,7 +22,7 @@ describe("when trackable element is present", function() {
       $('#testArea').html('');
     });
 
-    it("track-click class invokes track event on element with inferred default action", function() { 
+    it("track-click class invokes track event on element with inferred default action", function() {
       $('#testArea').append('<div id="track" class="track">test-data</div>');
       easyEventTracker = new EasyEventTracking(_gaq);
 
@@ -32,7 +32,7 @@ describe("when trackable element is present", function() {
       expect(_gaq[0][2]).toEqual("click");
     });
 
-    it("track-hover class invokes track event on element with inferred default action", function() { 
+    it("track-hover class invokes track event on element with inferred default action", function() {
       $('#testArea').append('<div id="track" class="track-mouseover">test-data</div>');
       easyEventTracker = new EasyEventTracking(_gaq);
 
@@ -42,7 +42,7 @@ describe("when trackable element is present", function() {
       expect(_gaq[0][2]).toEqual("mouseover");
     });
 
-    it("track-focus class invokes track event on element with inferred default action", function() { 
+    it("track-focus class invokes track event on element with inferred default action", function() {
       $('#testArea').append('<div id="track" class="track-focus">test-data</div>');
       easyEventTracker = new EasyEventTracking(_gaq);
 
@@ -52,7 +52,7 @@ describe("when trackable element is present", function() {
       expect(_gaq[0][2]).toEqual("focus");
     });
 
-    it("track-blur class invokes track event on element with inferred default action", function() { 
+    it("track-blur class invokes track event on element with inferred default action", function() {
       $('#testArea').append('<div id="track" class="track-blur">test-data</div>');
       easyEventTracker = new EasyEventTracking(_gaq);
 
@@ -72,7 +72,7 @@ describe("when a default track-event element is clicked", function() {
       $('#testArea').append('<div id="track" class="track">test-data</div>');
     });
 
-    it("a track event should be sent to google analytics", function() {      
+    it("a track event should be sent to google analytics", function() {
       easyEventTracker = new EasyEventTracking(_gaq);
 
       $('#track').click();
