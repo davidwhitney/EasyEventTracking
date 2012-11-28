@@ -138,7 +138,7 @@ describe("when an attribute with html5 data annotations on the track-event eleme
       expect(_gaq[0][2]).toEqual("action!");
     });
 
-    it("cateogry should override convention based tracking events", function() {
+    it("category should override convention based tracking events", function() {
       easyEventTracker = new EasyEventTracking(_gaq);
 
       $('#track').click();
