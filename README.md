@@ -45,14 +45,11 @@ Your analytics snippet before EET
 	    })();
 	  
 	  </script>
-
-	  <!-- Add this after Google analytics loads in your site 
-	      You'll need to use jQuery for now... -->
 	  <script type="text/javascript" src="src/EasyEventTracking.js"></script>
 	  <script type="text/javascript">
 	  $(function(){
 	    var tracker = new EasyEventTracking(_gaq, function(trackEvent){
-	        $('#trackEventHistory').append("<p>Track event was fired: " + trackEvent + "</p>");
+	        console.log("Track event was fired: " + trackEvent);
 	    });
 	  });
 	  </script>
