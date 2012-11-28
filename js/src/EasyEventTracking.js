@@ -43,7 +43,7 @@ function EasyEventTracking(googleAnalytics, afterTrackEventFires, errorLog) {
 		var category = $(fromElement).data('category') || "AutoTrack";
 		var action = $(fromElement).data('action') || interaction;
 		var label = $(fromElement).data('label') || window.location.pathname + "#" + fromElement.id; // optional
-		var value = $(fromElement).data('value') || ""; // optional
+		var value = $(fromElement).data('value') || $(fromElement).text(); // optional
 		var nonInteraction = $(fromElement).data('non-interaction') || false; // optional
 
 		return ['_trackEvent', category, action, label, value, nonInteraction];

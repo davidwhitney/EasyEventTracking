@@ -88,12 +88,37 @@ describe("when a default track-event element is clicked", function() {
       expect(_gaq[0][2]).toEqual("click");
     });
 
-    it("Default category set to AutoTrack", function() {
+    it("default category set to AutoTrack", function() {
       easyEventTracker = new EasyEventTracking(_gaq);
 
       $('#track').click();
 
       expect(_gaq[0][1]).toEqual("AutoTrack");
+    });
+
+    it("default label set to contains path and id", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][3]).toContain('EasyEventTracking/js/SpecRunner.html');
+      expect(_gaq[0][3]).toContain('#track');
+    });
+
+    it("value set to contain innerText", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][4]).toEqual('test-data');
+    });
+
+    it("non-interaction set to false", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][5]).toEqual(false);
     });
 
   });
@@ -102,7 +127,15 @@ describe("when an attribute with html5 data annotations on the track-event eleme
     beforeEach(function() {
       _gaq = [];
       $('#testArea').html('');
-      $('#testArea').append('<div id="track" class="track" data-category="category-here">test-data</div>');
+      $('#testArea').append('<div id="track" class="track" data-action="action!" data-category="category-here" data-label="label-here" data-value="my-val" data-non-interaction="true">test-data</div>');
+    });
+
+    it("action should override convention based tracking events", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][2]).toEqual("action!");
     });
 
     it("cateogry should override convention based tracking events", function() {
@@ -111,6 +144,30 @@ describe("when an attribute with html5 data annotations on the track-event eleme
       $('#track').click();
 
       expect(_gaq[0][1]).toEqual("category-here");
+    });
+
+    it("label should override convention based tracking events", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][3]).toEqual('label-here');
+    });
+
+    it("value should override convention based tracking events", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][4]).toEqual('my-val');
+    });
+
+    it("non-interaction can be set to true", function() {
+      easyEventTracker = new EasyEventTracking(_gaq);
+
+      $('#track').click();
+
+      expect(_gaq[0][5]).toEqual(true);
     });
 
   });
