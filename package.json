@@ -1,0 +1,12 @@
+{
+  "name": "EasyEventTracking",
+  "version": "1.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.9",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2",
+	"phantom-jasmine" : "~0.3.0"
+  }
+}
